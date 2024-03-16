@@ -10,6 +10,7 @@ public class MovieRepository {
     private HashMap<String, Movie> movieMap;
     private HashMap<String, Director> directorMap;
     private HashMap<String, List<String>> directorMovieMapping;
+    Director dir;
 
     public HashMap<String, Movie> getMovieMap() {
         return movieMap;
@@ -54,9 +55,12 @@ public class MovieRepository {
         if(movieMap.containsKey(movie) && directorMap.containsKey(director) && !directorMovieMapping.containsKey(director)){
             directorMovieMapping.put(director,new ArrayList<String>());
             directorMovieMapping.get(director).add(movie);
+            dir.setNumberOfMovies(dir.getNumberOfMovies()+1);
         }
         else{
             directorMovieMapping.get(director).add(movie);
+            directorMovieMapping.get(director).add(movie);
+            dir.setNumberOfMovies(dir.getNumberOfMovies()+1);
         }
     }
 
