@@ -50,20 +50,20 @@ public class MovieRepository {
         directorMap.put(director.getName(), director);
     }
 
-    public void saveMovieDirectorPair(String movie, String director){
-        if(movieMap.containsKey(movie) && directorMap.containsKey(director) && !directorMovieMapping.containsKey(director)){
-            directorMovieMapping.put(director,new ArrayList<String>());
-            directorMovieMapping.get(director).add(movie);
-            Director dir = directorMap.get(director);
-            dir.setNumberOfMovies(dir.getNumberOfMovies()+1);
-        }
-        else{
-            directorMovieMapping.get(director).add(movie);
-            directorMovieMapping.get(director).add(movie);
-            Director dir = directorMap.get(director);
-            dir.setNumberOfMovies(dir.getNumberOfMovies()+1);
+    public void saveMovieDirectorPair(String movie, String director) {
+        if (movieMap.containsKey(movie) && directorMap.containsKey(director)) {
+            if (!directorMovieMapping.containsKey(director)) {
+                directorMovieMapping.put(director, new ArrayList<>());
+            }
+            List<String> movies = directorMovieMapping.get(director);
+            if (!movies.contains(movie)) { // Avoid duplicate addition
+                movies.add(movie);
+                Director dir = directorMap.get(director);
+                dir.setNumberOfMovies(dir.getNumberOfMovies() + 1);
+            }
         }
     }
+
 
     public Movie findMovie(String movie){
         Movie m = movieMap.get(movie);
