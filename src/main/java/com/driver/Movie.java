@@ -19,6 +19,7 @@ public class Movie {
     }
 
     public String getName() {
+
         return name;
     }
 

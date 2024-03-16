@@ -11,6 +11,31 @@ public class MovieRepository {
     private HashMap<String, Director> directorMap;
     private HashMap<String, List<String>> directorMovieMapping;
 
+    public HashMap<String, Movie> getMovieMap() {
+        return movieMap;
+    }
+
+    public void setMovieMap(HashMap<String, Movie> movieMap) {
+        this.movieMap = movieMap;
+    }
+
+    public HashMap<String, Director> getDirectorMap() {
+        return directorMap;
+    }
+
+    public void setDirectorMap(HashMap<String, Director> directorMap) {
+        this.directorMap = directorMap;
+    }
+
+    public HashMap<String, List<String>> getDirectorMovieMapping() {
+        return directorMovieMapping;
+    }
+
+    public void setDirectorMovieMapping(HashMap<String, List<String>> directorMovieMapping) {
+        this.directorMovieMapping = directorMovieMapping;
+    }
+
+
     public MovieRepository(){
         this.movieMap = new HashMap<String, Movie>();
         this.directorMap = new HashMap<String, Director>();
@@ -18,29 +43,36 @@ public class MovieRepository {
     }
 
     public void saveMovie(Movie movie){
-        // your code here
+        movieMap.put(movie.getName(), movie);
     }
 
     public void saveDirector(Director director){
-        // your code here
+        directorMap.put(director.getName(), director);
     }
 
     public void saveMovieDirectorPair(String movie, String director){
-        if(movieMap.containsKey(movie) && directorMap.containsKey(director)){
-            // your code here
+        if(movieMap.containsKey(movie) && directorMap.containsKey(director) && !directorMovieMapping.containsKey(director)){
+            directorMovieMapping.put(director,new ArrayList<String>());
+            directorMovieMapping.get(director).add(movie);
+        }
+        else{
+            directorMovieMapping.get(director).add(movie);
         }
     }
 
     public Movie findMovie(String movie){
-        // your code here
+        Movie m = movieMap.get(movie);
+        return m;
     }
 
     public Director findDirector(String director){
-        // your code here
+        Director d = directorMap.get(director);
+        return d;
     }
 
     public List<String> findMoviesFromDirector(String director){
-        // your code here
+        List<String> list = directorMovieMapping.get(director);
+        return list;
     }
 
     public List<String> findAllMovies(){
@@ -48,10 +80,11 @@ public class MovieRepository {
     }
 
     public void deleteDirector(String director){
-        // your code here
+        directorMovieMapping.remove(director);
+        directorMap.remove(director);
     }
 
     public void deleteAllDirector(){
-        // your code here
+        directorMap.clear();
     }
 }

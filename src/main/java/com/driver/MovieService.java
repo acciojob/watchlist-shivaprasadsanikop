@@ -12,6 +12,7 @@ public class MovieService {
     MovieRepository movieRepository;
 
     public void addMovie(Movie movie){
+
         movieRepository.saveMovie(movie);
     }
 
